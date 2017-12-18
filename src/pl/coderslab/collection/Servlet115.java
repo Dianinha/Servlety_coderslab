@@ -1,7 +1,10 @@
-package pl.coderslab;
+package pl.coderslab.collection;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Get63
+ * Servlet implementation class Servlet115
  */
-@WebServlet("/Get63")
-public class Get63 extends HttpServlet {
+@WebServlet("/Servlet115")
+public class Servlet115 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get63() {
+    public Servlet115() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,13 +31,18 @@ public class Get63 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String year = request.getParameter("year");
-		String mix = request.getParameter("mix");
-		PrintWriter pw = response.getWriter();
-		int y = Integer.parseInt(year);
-		int m = Integer.parseInt(mix);
-		int result = y+m;
-		pw.append("Rok to: " + result + ".");
+		Map<String, String> map = new HashMap<String, String>();
+
+        Enumeration headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = (String) headerNames.nextElement();
+            String value = request.getHeader(key);
+            map.put(key, value);
+        }
+        PrintWriter pw = response.getWriter();
+        for (String s : map.keySet()) {
+			pw.append(s + " : " + map.get(s)).append("\n");
+		}
 	}
 
 	/**

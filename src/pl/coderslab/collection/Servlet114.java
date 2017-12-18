@@ -1,7 +1,11 @@
-package pl.coderslab;
+package pl.coderslab.collection;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Get63
+ * Servlet implementation class Servlet114
  */
-@WebServlet("/Get63")
-public class Get63 extends HttpServlet {
+@WebServlet("/Servlet114")
+public class Servlet114 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get63() {
+    public Servlet114() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,13 +32,27 @@ public class Get63 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String year = request.getParameter("year");
-		String mix = request.getParameter("mix");
+
+		List<Integer> nums = new ArrayList<>();
+		Random r = new Random();
+		for (int i = 0; i < 10; i++) {
+			int tmp = r.nextInt(100)+1;
+			nums.add(tmp);
+		}
 		PrintWriter pw = response.getWriter();
-		int y = Integer.parseInt(year);
-		int m = Integer.parseInt(mix);
-		int result = y+m;
-		pw.append("Rok to: " + result + ".");
+		pw.append("<html><head></head><body><table><tr>");
+		for (int i = 0; i < 10; i++) {
+			pw.append("<td>"+nums.get(i)+"</td>");
+		}
+		
+		pw.append("</tr></table><br>");
+		Collections.sort(nums);
+		pw.append("<br><table><tr>");
+		for (int i = 0; i < 10; i++) {
+			pw.append("<td>"+nums.get(i)+"</td>");
+		}
+		
+		pw.append("</tr></table></body></html>");
 	}
 
 	/**
